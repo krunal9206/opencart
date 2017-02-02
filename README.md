@@ -23,3 +23,18 @@ Accept ABSA, Standard Bank, Capitec, Investec, FNB and Nedbank payments directly
 <li>Go to <strong>Extensions</strong> &gt; <strong>Payments</strong>.</li>
 <li>In the <strong>EFTsecure</strong> section click <strong>Install</strong>.</li>
 </ol>
+
+# Configuration - For OpenCart 2.3.x
+<ol>
+<li>Go to the OpenCart administration page [http://your-opencart-url/admin].</li>
+<li>Go to <strong>Extensions</strong> &gt; <strong>Extensions</strong>.</li>
+<li>Set filter to <strong>Payments</strong> </li>
+<li>In the <strong>EFTsecure</strong> section click <strong>Edit</strong>.</li>
+</ol>
+
+# Configuration - For OpenCart 2.0.x, 2.1.x or 2.2.x
+<ol>
+<li>Go to the OpenCart administration page [http://your-opencart-url/admin].</li>
+<li>Go to <strong>Extensions</strong> &gt; <strong>Payments</strong>.</li>
+<li>In the <strong>EFTsecure</strong> section click <strong>Edit</strong>.</li>
+</ol>
