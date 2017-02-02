@@ -33,9 +33,11 @@ class ControllerExtensionPaymentEFTsecure extends Controller {
 		if(isset($response_data->token)){
 			$data['token'] = $response_data->token;
 			$data['organisation_id'] = $response_data->organisation_id;
+			$this->session->data['eftsecure_token'] = $response_data->token;
 		} else {
 			$data['token'] = '';
 			$data['organisation_id'] = '';
+			$this->session->data['eftsecure_token'] = '';
 		}
 		
 		$this->load->model('checkout/order');
@@ -50,10 +52,31 @@ class ControllerExtensionPaymentEFTsecure extends Controller {
 	public function success() {
 		if ($this->session->data['payment_method']['code'] == 'eftsecure') {
 			$this->load->model('checkout/order');
-
-			$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('cod_order_status_id'));
 			
-			$this->response->redirect($this->url->link('checkout/success', '', true));
+			$gateway_reference = $this->request->get['gateway_reference'];
+			
+			$headers = array(
+				'X-Token: '.$this->session->data['eftsecure_token'],
+			);
+			
+			$curl = curl_init('https://services.callpay.com/api/v1/gateway-transaction/'.$gateway_reference);
+			curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+			curl_setopt($curl, CURLOPT_HEADER, 0);
+			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+			$response = curl_exec($curl);
+			curl_close($curl);
+			
+			$response_data = json_decode($response);
+			
+			if($response_data->id == $gateway_reference && $response_data->successful == 1) {
+				$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('cod_order_status_id'));
+				unset($this->session->data['eftsecure_token']);
+				$this->response->redirect($this->url->link('checkout/success', '', true));
+			} else {
+				$this->response->redirect($this->url->link('checkout/checkout', '', true));
+			}
 		}
 	}
 }
