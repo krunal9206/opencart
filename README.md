@@ -9,7 +9,7 @@ Accept ABSA, Standard Bank, Capitec, Investec, FNB and Nedbank payments directly
 
 # Installation - For OpenCart 2.3.x
 <ol>
-<li>Copy the "upload_2.3.x" folder from <a href="https://github.com/krunal9206/opencart">the plugin repository</a> to your OpenCart root folder on the server.</li>
+<li>Copy the "upload_2.3.x" folder from <a href="https://github.com/EFTsecure/opencart">the plugin repository</a> to your OpenCart root folder on the server.</li>
 <li>Go to the OpenCart administration page [http://your-opencart-url/admin].</li>
 <li>Go to <strong>Extensions</strong> &gt; <strong>Extensions</strong>.</li>
 <li>Set filter to <strong>Payments</strong> </li>
